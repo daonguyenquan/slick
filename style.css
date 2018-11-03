@@ -18,6 +18,13 @@ h2{
   height: 142px;
   overflow-x: hidden;
 }
+.multiple-slide-content {
+  margin: 0 auto;
+  padding: 0;
+  width: 176px;
+  height: 142px;
+  overflow-x: hidden;
+}
 .wrap {
   position: relative;
   margin: 20px auto;
