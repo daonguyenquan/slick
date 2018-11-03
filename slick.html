@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Slick</title>
+</head>
+<body>
+    <div class="content">
+        <!--SINGLE ITEM-->
+        <h2>Single Item</h2>        
+        <div class="wrap">
+            <div id="single-btn-prev" class="btn btn-prev"></div>
+            <div id="slider">
+                <div class="single-slide slide1">
+                    <div class="single-slide-content">
+                        <h3>1</h3>
+                    </div>
+                </div>
+                <div class="single-slide slide2">
+                    <div class="single-slide-content">
+                        <h3>2</h3>
+                    </div>
+                </div>
+                <div class="single-slide slide3">
+                    <div class="single-slide-content">
+                        <h3>3</h3>
+                    </div>
+                </div>
+                <div class="single-slide slide4">
+                    <div class="single-slide-content">
+                        <h3>4</h3>
+                    </div>
+                </div>
+                <div class="single-slide slide5">
+                    <div class="single-slide-content">
+                        <h3>5</h3>
+                    </div>
+                </div>
+                <div class="single-slide slide6">
+                    <div class="single-slide-content">
+                        <h3>6</h3>
+                    </div>
+                </div>
+            </div>
+            <div id="single-btn-next" class="btn btn-next"></div>
+            <ul class="nav" id="single-nav">
+                <li class="dots single-dots" id="single-dot1"></li>
+                <li class="dots single-dots" id="single-dot2"></li>
+                <li class="dots single-dots" id="single-dot3"></li>
+                <li class="dots single-dots" id="single-dot4"></li>
+                <li class="dots single-dots" id="single-dot5"></li>
+                <li class="dots single-dots" id="single-dot6"></li>
+            </ul>
+        </div>
+
+        <!--MULTIPLE ITEM-->
+        <h2>Multiple Item</h2>
+        <div class="wrap">
+            <div id="multiple-btn-prev" class="btn btn-prev"></div>
+            <div id="slider">
+                <div class="multiple-slide slide1">
+                    <div class="multiple-slide-content">
+                        <h3>1</h3>
+                    </div>
+                </div>
+                <div class="multiple-slide slide2">
+                    <div class="multiple-slide-content">
+                        <h3>2</h3>
+                    </div>
+                </div>
+                <div class="multiple-slide slide3">
+                    <div class="multiple-slide-content">
+                        <h3>3</h3>
+                    </div>
+                </div>
+                <div class="multiple-slide slide4">
+                    <div class="multiple-slide-content">
+                        <h3>4</h3>
+                    </div>
+                </div>
+                <div class="multiple-slide slide5">
+                    <div class="multiple-slide-content">
+                        <h3>5</h3>
+                    </div>
+                </div>
+                <div class="multiple-slide slide6" style="width: 177px">
+                    <div class="multiple-slide-content">
+                        <h3>6</h3>
+                    </div>
+                </div>
+            </div>
+            <div id="multiple-btn-next" class="btn btn-next"></div>
+            <ul class="nav" id="multiple-nav">
+                <li class="dots multiple-dots" id="multiple-dot1"></li>
+                <li class="dots multiple-dots" id="multiple-dot2"></li>
+                <li class="dots multiple-dots" id="multiple-dot3"></li>
+                <li class="dots multiple-dots" id="multiple-dot4"></li>
+                <li class="dots multiple-dots" id="multiple-dot5"></li>
+                <li class="dots multiple-dots" id="multiple-dot6"></li>
+            </ul>
+        </div>
+    </div>
+    <!--JQuery Code-->
+    <!--Single Item-->
+    <script>
+        let singleSlider = $('.single-slide');
+        let current = 1;
+        let slideNo = '.slide';
+        let dotNo = '#single-dot';
+
+        // Hide all
+        function reset() {
+            $('.single-slide').css('display','none');
+        }
+
+        // Display slideNo
+        function slideDisplay(no) {
+            reset();
+            slideNo = '.slide' + no;
+            console.log(slideNo);
+            dotNo = '#single-dot' + no;
+            console.log(dotNo);
+            $('.single-slide').filter(slideNo).css('display','block');
+            $('.single-dots').removeClass('dot-active');
+            $('.single-dots').filter(dotNo).addClass('dot-active');
+        }
+
+        // Show prev
+        function slidePrev() {
+            reset();
+            slideDisplay(current - 1);
+            current--;
+        }
+
+        // Show next
+        function slideNext() {
+            reset();
+            slideDisplay(current + 1);
+            current++;
+        }
+
+        // Button previous click
+        $('#single-btn-prev').on('click', function () {
+            if (current === 1) {
+                current = singleSlider.length + 1;
+            }
+            slidePrev();
+        });
+
+        // Button next click
+        $('#single-btn-next').on('click', function () {
+            if (current === singleSlider.length) {
+                current = 0;
+            }
+            slideNext();
+        });
+        
+        
+        //dots click
+        $('.single-dots').filter('#single-dot1').on('click', function(){
+            current = 1;
+            slideDisplay(current);
+        });
+        $('.single-dots').filter('#single-dot2').on('click', function(){
+            current = 2;
+            slideDisplay(current);
+        });
+        $('.single-dots').filter('#single-dot3').on('click', function(){
+            current = 3;
+            slideDisplay(current);
+        });
+        $('.single-dots').filter('#single-dot4').on('click', function(){
+            current = 4;
+            slideDisplay(current);
+        });
+        $('.single-dots').filter('#single-dot5').on('click', function(){
+            current = 5;
+            slideDisplay(current);
+        });
+        $('.single-dots').filter('#single-dot6').on('click', function(){
+            current = 6;
+            slideDisplay(current);
+        });
+
+        slideDisplay(current);
+    </script>
+    <!--Multiple Item-->
+    <script>
+        let multipleSlider = $('.multiple-slide');
+        let head = 1;
+        let tail = 3;
+        let firstSlide = '.slide';
+        let secondSlide = '.slide';
+        let thirdSlide = '.slide';
+        let multipleDotNo = '#multiple-dot';
+
+        // Hide all
+        function multipleReset() {
+            $('.multiple-slide').css('display','none');
+        }
+
+        // Display slideNo
+        function multipleSlideDisplay(no) {
+            multipleReset();
+            firstSlide = '.slide' + no;
+            secondSlide = '.slide' + (no + 1);
+            thirdSlide = '.slide' + (no + 2);
+            console.log(firstSlide);
+            multipleDotNo = '#multiple-dot' + no;
+            console.log(multipleDotNo);
+            $('.multiple-slide').filter(firstSlide).css('display','block');
+            $('.multiple-slide').filter(secondSlide).css('display','block');
+            $('.multiple-slide').filter(thirdSlide).css('display','block');
+            $('.multiple-dots').removeClass('dot-active');
+            $('.multiple-dots').filter(multipleDotNo).addClass('dot-active');
+        }
+
+        // Show prev
+        function multipleSlidePrev() {
+            multipleReset();
+            multipleSlideDisplay(head - 1);
+            head--;
+        }
+
+        // Show next
+        function multipleSlideNext() {
+            multipleReset();
+            multipleSlideDisplay(head + 1);
+            head++;
+        }
+
+        // Button previous click
+        $('#multiple-btn-prev').on('click', function () {
+            if (head === 1) {
+                head = multipleSlider.length + 1;
+            }
+            multipleSlidePrev();
+        });
+
+        // Button next click
+        $('#multiple-btn-next').on('click', function () {
+            if (head === multipleSlider.length) {
+                head = 0;
+            }
+            multipleSlideNext();
+        });
+        
+        
+        //dots click
+        $('.multiple-dots').filter('#multiple-dot1').on('click', function(){
+            head = 1;
+            multipleSlideDisplay(head);
+        });
+        $('.multiple-dots').filter('#multiple-dot2').on('click', function(){
+            head = 2;
+            multipleSlideDisplay(head);
+        });
+        $('.multiple-dots').filter('#multiple-dot3').on('click', function(){
+            head = 3;
+            multipleSlideDisplay(head);
+        });
+        $('.multiple-dots').filter('#multiple-dot4').on('click', function(){
+            head = 4;
+            multipleSlideDisplay(head);
+        });
+        $('.multiple-dots').filter('#multiple-dot5').on('click', function(){
+            head = 5;
+            multipleSlideDisplay(head);
+        });
+        $('.multiple-dots').filter('#multiple-dot6').on('click', function(){
+            head = 6;
+            multipleSlideDisplay(head);
+        });
+
+        multipleSlideDisplay(head);
+    </script>
+</body>
+</html>
