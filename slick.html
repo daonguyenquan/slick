@@ -206,12 +206,22 @@
         // Display slideNo
         function multipleSlideDisplay(no) {
             multipleReset();
-            firstSlide = '.slide' + no;
-            secondSlide = '.slide' + (no + 1);
-            thirdSlide = '.slide' + (no + 2);
-            console.log(firstSlide);
+            if(no === multipleSlider.length - 1){
+                firstSlide = '.slide' + no;
+                secondSlide = '.slide' + (no + 1);
+                thirdSlide = '.slide1';
+            }
+            else if(no === multipleSlider.length){
+                firstSlide = '.slide' + no;
+                secondSlide = '.slide1';
+                thirdSlide = '.slide2';
+            }
+            else{
+                firstSlide = '.slide' + no;
+                secondSlide = '.slide' + (no + 1);
+                thirdSlide = '.slide' + (no + 2);
+            }
             multipleDotNo = '#multiple-dot' + no;
-            console.log(multipleDotNo);
             $('.multiple-slide').filter(firstSlide).css('display','block');
             $('.multiple-slide').filter(secondSlide).css('display','block');
             $('.multiple-slide').filter(thirdSlide).css('display','block');
@@ -224,6 +234,7 @@
             multipleReset();
             multipleSlideDisplay(head - 1);
             head--;
+            tail--;
         }
 
         // Show next
@@ -231,6 +242,7 @@
             multipleReset();
             multipleSlideDisplay(head + 1);
             head++;
+            tail++;
         }
 
         // Button previous click
@@ -243,8 +255,11 @@
 
         // Button next click
         $('#multiple-btn-next').on('click', function () {
-            if (head === multipleSlider.length) {
-                head = 0;
+            if (tail === multipleSlider.length) {
+                head = 4; tail = 0;
+            }
+            else if (tail === 2){
+                head = 0; tail = 2;
             }
             multipleSlideNext();
         });
