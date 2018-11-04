@@ -33,11 +33,8 @@ h2{
   height: 162px;
   overflow-x: hidden;
 }
-.single-slide {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
+
+.single-slide,
 .multiple-slide {
   background-size: cover;
   background-position: center;

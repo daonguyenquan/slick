@@ -87,7 +87,7 @@
                         <h3>5</h3>
                     </div>
                 </div>
-                <div class="multiple-slide slide6" style="width: 177px">
+                <div class="multiple-slide slide6">
                     <div class="multiple-slide-content">
                         <h3>6</h3>
                     </div>
@@ -121,26 +121,10 @@
         function slideDisplay(no) {
             reset();
             slideNo = '.slide' + no;
-            console.log(slideNo);
             dotNo = '#single-dot' + no;
-            console.log(dotNo);
             $('.single-slide').filter(slideNo).css('display','block');
             $('.single-dots').removeClass('dot-active');
             $('.single-dots').filter(dotNo).addClass('dot-active');
-        }
-
-        // Show prev
-        function slidePrev() {
-            reset();
-            slideDisplay(current - 1);
-            current--;
-        }
-
-        // Show next
-        function slideNext() {
-            reset();
-            slideDisplay(current + 1);
-            current++;
         }
 
         // Button previous click
@@ -148,7 +132,8 @@
             if (current === 1) {
                 current = singleSlider.length + 1;
             }
-            slidePrev();
+            slideDisplay(current - 1);
+            current--;
         });
 
         // Button next click
@@ -156,7 +141,8 @@
             if (current === singleSlider.length) {
                 current = 0;
             }
-            slideNext();
+            slideDisplay(current + 1);
+            current++;
         });
         
         
@@ -190,7 +176,7 @@
     </script>
     <!--Multiple Item-->
     <script>
-        let multipleSlider = $('.multiple-slide');
+        let length = $('.multiple-slide').length;
         let head = 1;
         let tail = 3;
         let firstSlide = '.slide';
@@ -204,94 +190,79 @@
         }
 
         // Display slideNo
-        function multipleSlideDisplay(no) {
+        function multipleSlideDisplay(no, no2, no3) {
             multipleReset();
-            if(no === multipleSlider.length - 1){
-                firstSlide = '.slide' + no;
-                secondSlide = '.slide' + (no + 1);
-                thirdSlide = '.slide1';
-            }
-            else if(no === multipleSlider.length){
-                firstSlide = '.slide' + no;
-                secondSlide = '.slide1';
-                thirdSlide = '.slide2';
-            }
-            else{
-                firstSlide = '.slide' + no;
-                secondSlide = '.slide' + (no + 1);
-                thirdSlide = '.slide' + (no + 2);
-            }
+            firstSlide = '.slide' + no;
+            secondSlide = '.slide' + no2;
+            thirdSlide = '.slide' + no3;
             multipleDotNo = '#multiple-dot' + no;
-            $('.multiple-slide').filter(firstSlide).css('display','block');
-            $('.multiple-slide').filter(secondSlide).css('display','block');
-            $('.multiple-slide').filter(thirdSlide).css('display','block');
+            $('.multiple-slide').filter(firstSlide).css('display','inline-block');
+            $('.multiple-slide').filter(secondSlide).css('display','inline-block');
+            $('.multiple-slide').filter(thirdSlide).css('display','inline-block');
             $('.multiple-dots').removeClass('dot-active');
             $('.multiple-dots').filter(multipleDotNo).addClass('dot-active');
         }
 
-        // Show prev
-        function multipleSlidePrev() {
-            multipleReset();
-            multipleSlideDisplay(head - 1);
-            head--;
-            tail--;
-        }
-
-        // Show next
-        function multipleSlideNext() {
-            multipleReset();
-            multipleSlideDisplay(head + 1);
-            head++;
-            tail++;
-        }
 
         // Button previous click
         $('#multiple-btn-prev').on('click', function () {
             if (head === 1) {
-                head = multipleSlider.length + 1;
+                multipleSlideDisplay(length,1,2);
+            } else if (head === length && tail === 2) {
+                multipleSlideDisplay(length-1, length, 1);
+            } else if(head === length-1 && tail ===1){
+                multipleSlideDisplay(4,5,6);
+            }else {
+                multipleSlideDisplay(tail-3,tail-2,tail-1);
             }
-            multipleSlidePrev();
-        });
-
-        // Button next click
-        $('#multiple-btn-next').on('click', function () {
-            if (tail === multipleSlider.length) {
-                head = 4; tail = 0;
-            }
-            else if (tail === 2){
-                head = 0; tail = 2;
-            }
-            multipleSlideNext();
+            head--; tail--;
+            if(head===0) head=length;
+            if(tail===0) tail=length;
         });
         
+        // Button next click
+        $('#multiple-btn-next').on('click', function () {
+            if (tail === length) {
+                multipleSlideDisplay(length-1,length,1);
+            } else if (head === length-1 && tail === 1){
+                multipleSlideDisplay(length,1,2);
+            } else if(head===length && tail===2){
+                multipleSlideDisplay(1,2,3);
+            } else{
+                multipleSlideDisplay(head+1, head + 2, head + 3);
+            }
+            head++; tail++;
+            if(head===length+1) head=1;
+            if(tail===length+1) tail=1;
+        });
         
         //dots click
         $('.multiple-dots').filter('#multiple-dot1').on('click', function(){
             head = 1;
-            multipleSlideDisplay(head);
+            multipleSlideDisplay(head,head+1, head + 2);
         });
         $('.multiple-dots').filter('#multiple-dot2').on('click', function(){
             head = 2;
-            multipleSlideDisplay(head);
+            multipleSlideDisplay(head, head+1, head + 2);
         });
         $('.multiple-dots').filter('#multiple-dot3').on('click', function(){
             head = 3;
-            multipleSlideDisplay(head);
+            multipleSlideDisplay(head, head+1, head + 2);
         });
         $('.multiple-dots').filter('#multiple-dot4').on('click', function(){
             head = 4;
-            multipleSlideDisplay(head);
+            multipleSlideDisplay(head,head+1, head + 2);
         });
         $('.multiple-dots').filter('#multiple-dot5').on('click', function(){
-            head = 5;
-            multipleSlideDisplay(head);
+            head = length-1;
+            multipleSlideDisplay(head, head+1, 1);
         });
         $('.multiple-dots').filter('#multiple-dot6').on('click', function(){
-            head = 6;
-            multipleSlideDisplay(head);
+            head = length;
+            multipleSlideDisplay(head,1,2);
         });
 
-        multipleSlideDisplay(head);
+        multipleSlideDisplay(1,2,3);
     </script>
 </body>
 </html>
