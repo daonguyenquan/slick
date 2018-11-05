@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="HTML, CSS, JavaScript, JQuery, Plugin Slick">
+    <meta name="description" content="Plugin Slick">
+    <meta name="author" content="Dao Nguyen-Quan">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/png" href="img/icon-spy.jpg">
     <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>Slick</title>
@@ -15,6 +19,7 @@
         <div class="wrap">
             <div id="single-btn-prev" class="btn btn-prev"></div>
             <div id="slider">
+                <div id="unique-slide"></div>
                 <div class="single-slide slide1">
                     <div class="single-slide-content">
                         <h3>1</h3>
@@ -62,6 +67,9 @@
         <div class="wrap">
             <div id="multiple-btn-prev" class="btn btn-prev"></div>
             <div id="slider">
+                <div id="1st-slide"></div>
+                <div id="2nd-slide"></div>
+                <div id="3rd-slide"></div>
                 <div class="multiple-slide slide1">
                     <div class="multiple-slide-content">
                         <h3>1</h3>
@@ -107,162 +115,167 @@
     <!--JQuery Code-->
     <!--Single Item-->
     <script>
-        let singleSlider = $('.single-slide');
-        let current = 1;
-        let slideNo = '.slide';
-        let dotNo = '#single-dot';
+        $(document).ready(function(){
+            let singleSlider = $('.single-slide');
+            let current = 1;
+            let slideNo = '.slide';
+            let dotNo = '#single-dot';
 
-        // Hide all
-        function reset() {
-            $('.single-slide').css('display','none');
-        }
-
-        // Display slideNo
-        function slideDisplay(no) {
-            reset();
-            slideNo = '.slide' + no;
-            dotNo = '#single-dot' + no;
-            $('.single-slide').filter(slideNo).css('display','block');
-            $('.single-dots').removeClass('dot-active');
-            $('.single-dots').filter(dotNo).addClass('dot-active');
-        }
-
-        // Button previous click
-        $('#single-btn-prev').on('click', function () {
-            if (current === 1) {
-                current = singleSlider.length + 1;
+            // Hide all
+            function reset() {
+                $('.single-slide').css('display', 'none');
             }
-            slideDisplay(current - 1);
-            current--;
-        });
 
-        // Button next click
-        $('#single-btn-next').on('click', function () {
-            if (current === singleSlider.length) {
-                current = 0;
+            // Display slideNo
+            function slideDisplay(no) {
+                reset();
+                slideNo = '.slide' + no;
+                dotNo = '#single-dot' + no;
+                $('#unique-slide').append($('.single-slide').filter(slideNo).fadeIn(1000));
+                
+                $('.single-dots').removeClass('dot-active');
+                $('.single-dots').filter(dotNo).addClass('dot-active');
             }
-            slideDisplay(current + 1);
-            current++;
-        });
-        
-        
-        //dots click
-        $('.single-dots').filter('#single-dot1').on('click', function(){
-            current = 1;
-            slideDisplay(current);
-        });
-        $('.single-dots').filter('#single-dot2').on('click', function(){
-            current = 2;
-            slideDisplay(current);
-        });
-        $('.single-dots').filter('#single-dot3').on('click', function(){
-            current = 3;
-            slideDisplay(current);
-        });
-        $('.single-dots').filter('#single-dot4').on('click', function(){
-            current = 4;
-            slideDisplay(current);
-        });
-        $('.single-dots').filter('#single-dot5').on('click', function(){
-            current = 5;
-            slideDisplay(current);
-        });
-        $('.single-dots').filter('#single-dot6').on('click', function(){
-            current = 6;
-            slideDisplay(current);
-        });
 
-        slideDisplay(current);
+            // Button previous click
+            $('#single-btn-prev').on('click', function () {
+                if (current === 1) {
+                    current = singleSlider.length + 1;
+                }
+                slideDisplay(current - 1);
+                current--;
+            });
+
+            // Button next click
+            $('#single-btn-next').on('click', function () {
+                if (current === singleSlider.length) {
+                    current = 0;
+                }
+                slideDisplay(current + 1);
+                current++;
+            });
+
+
+            //dots click
+            $('.single-dots').filter('#single-dot1').on('click', function () {
+                current = 1;
+                slideDisplay(current);
+            });
+            $('.single-dots').filter('#single-dot2').on('click', function () {
+                current = 2;
+                slideDisplay(current);
+            });
+            $('.single-dots').filter('#single-dot3').on('click', function () {
+                current = 3;
+                slideDisplay(current);
+            });
+            $('.single-dots').filter('#single-dot4').on('click', function () {
+                current = 4;
+                slideDisplay(current);
+            });
+            $('.single-dots').filter('#single-dot5').on('click', function () {
+                current = 5;
+                slideDisplay(current);
+            });
+            $('.single-dots').filter('#single-dot6').on('click', function () {
+                current = 6;
+                slideDisplay(current);
+            });
+
+            slideDisplay(current);
+        });
     </script>
     <!--Multiple Item-->
     <script>
-        let length = $('.multiple-slide').length;
-        let head = 1;
-        let tail = 3;
-        let firstSlide = '.slide';
-        let secondSlide = '.slide';
-        let thirdSlide = '.slide';
-        let multipleDotNo = '#multiple-dot';
+        $(document).ready(function(){
+            let length = $('.multiple-slide').length;
+            let head = 1;
+            let tail = 3;
+            let firstSlide = '.slide';
+            let secondSlide = '.slide';
+            let thirdSlide = '.slide';
+            let multipleDotNo = '#multiple-dot';
 
-        // Hide all
-        function multipleReset() {
-            $('.multiple-slide').css('display','none');
-        }
-
-        // Display slideNo
-        function multipleSlideDisplay(no, no2, no3) {
-            multipleReset();
-            firstSlide = '.slide' + no;
-            secondSlide = '.slide' + no2;
-            thirdSlide = '.slide' + no3;
-            multipleDotNo = '#multiple-dot' + no;
-            $('.multiple-slide').filter(firstSlide).css('display','inline-block');
-            $('.multiple-slide').filter(secondSlide).css('display','inline-block');
-            $('.multiple-slide').filter(thirdSlide).css('display','inline-block');
-            $('.multiple-dots').removeClass('dot-active');
-            $('.multiple-dots').filter(multipleDotNo).addClass('dot-active');
-        }
-
-
-        // Button previous click
-        $('#multiple-btn-prev').on('click', function () {
-            if (head === 1) {
-                multipleSlideDisplay(length,1,2);
-            } else if (head === length && tail === 2) {
-                multipleSlideDisplay(length-1, length, 1);
-            } else if(head === length-1 && tail ===1){
-                multipleSlideDisplay(4,5,6);
-            }else {
-                multipleSlideDisplay(tail-3,tail-2,tail-1);
+            // Hide all
+            function multipleReset() {
+                $('.multiple-slide').css('display', 'none');
             }
-            head--; tail--;
-            if(head===0) head=length;
-            if(tail===0) tail=length;
-        });
-        
-        // Button next click
-        $('#multiple-btn-next').on('click', function () {
-            if (tail === length) {
-                multipleSlideDisplay(length-1,length,1);
-            } else if (head === length-1 && tail === 1){
-                multipleSlideDisplay(length,1,2);
-            } else if(head===length && tail===2){
-                multipleSlideDisplay(1,2,3);
-            } else{
-                multipleSlideDisplay(head+1, head + 2, head + 3);
-            }
-            head++; tail++;
-            if(head===length+1) head=1;
-            if(tail===length+1) tail=1;
-        });
-        
-        //dots click
-        $('.multiple-dots').filter('#multiple-dot1').on('click', function(){
-            head = 1;
-            multipleSlideDisplay(head,head+1, head + 2);
-        });
-        $('.multiple-dots').filter('#multiple-dot2').on('click', function(){
-            head = 2;
-            multipleSlideDisplay(head, head+1, head + 2);
-        });
-        $('.multiple-dots').filter('#multiple-dot3').on('click', function(){
-            head = 3;
-            multipleSlideDisplay(head, head+1, head + 2);
-        });
-        $('.multiple-dots').filter('#multiple-dot4').on('click', function(){
-            head = 4;
-            multipleSlideDisplay(head,head+1, head + 2);
-        });
-        $('.multiple-dots').filter('#multiple-dot5').on('click', function(){
-            head = length-1;
-            multipleSlideDisplay(head, head+1, 1);
-        });
-        $('.multiple-dots').filter('#multiple-dot6').on('click', function(){
-            head = length;
-            multipleSlideDisplay(head,1,2);
-        });
 
-        multipleSlideDisplay(1,2,3);
+            // Display slideNo
+            function multipleSlideDisplay(no, no2, no3) {
+                multipleReset();
+                firstSlide = '.slide' + no;
+                secondSlide = '.slide' + no2;
+                thirdSlide = '.slide' + no3;
+                multipleDotNo = '#multiple-dot' + no;
+                $('#1st-slide').append($('.multiple-slide').filter(firstSlide).fadeIn(1000));
+                $('#2nd-slide').append($('.multiple-slide').filter(secondSlide).fadeIn(1000));
+                $('#3rd-slide').append($('.multiple-slide').filter(thirdSlide).fadeIn(1000));
+                $('.multiple-dots').removeClass('dot-active');
+                $('.multiple-dots').filter(multipleDotNo).addClass('dot-active');
+            }
+
+
+            // Button previous click
+            $('#multiple-btn-prev').on('click', function () {
+                if (head === 1) {
+                    multipleSlideDisplay(length, 1, 2);
+                } else if (head === length && tail === 2) {
+                    multipleSlideDisplay(length - 1, length, 1);
+                } else if (head === length - 1 && tail === 1) {
+                    multipleSlideDisplay(4, 5, 6);
+                } else {
+                    multipleSlideDisplay(tail - 3, tail - 2, tail - 1);
+                }
+                head--; tail--;
+                if (head === 0) head = length;
+                if (tail === 0) tail = length;
+            });
+
+            // Button next click
+            $('#multiple-btn-next').on('click', function () {
+                if (tail === length) {
+                    multipleSlideDisplay(length - 1, length, 1);
+                } else if (head === length - 1 && tail === 1) {
+                    multipleSlideDisplay(length, 1, 2);
+                } else if (head === length && tail === 2) {
+                    multipleSlideDisplay(1, 2, 3);
+                } else {
+                    multipleSlideDisplay(head + 1, head + 2, head + 3);
+                }
+                head++; tail++;
+                if (head === length + 1) head = 1;
+                if (tail === length + 1) tail = 1;
+            });
+
+            //dots click
+            $('.multiple-dots').filter('#multiple-dot1').on('click', function () {
+                head = 1; tail = 3;
+                multipleSlideDisplay(head, head + 1, head + 2);
+            });
+            $('.multiple-dots').filter('#multiple-dot2').on('click', function () {
+                head = 2; tail = 4;
+                multipleSlideDisplay(head, head + 1, head + 2);
+            });
+            $('.multiple-dots').filter('#multiple-dot3').on('click', function () {
+                head = 3; tail = 5;
+                multipleSlideDisplay(head, head + 1, head + 2);
+            });
+            $('.multiple-dots').filter('#multiple-dot4').on('click', function () {
+                head = 4; tail = 6;
+                multipleSlideDisplay(head, head + 1, head + 2);
+            });
+            $('.multiple-dots').filter('#multiple-dot5').on('click', function () {
+                head = length - 1; tail = 1;
+                multipleSlideDisplay(head, head + 1, 1);
+            });
+            $('.multiple-dots').filter('#multiple-dot6').on('click', function () {
+                head = length; tail = 2;
+                multipleSlideDisplay(head, 1, 2);
+            });
+
+            multipleSlideDisplay(1, 2, 3);
+        });
     </script>
 </body>
 </html>
